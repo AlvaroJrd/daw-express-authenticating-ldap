@@ -75,7 +75,14 @@ echo \'(This is why you specified the "args \'\'-p 3000:3000\'\'" parameter when
 echo \'created your initial Pipeline as a Jenkinsfile.)\'
 '''
         input 'Finished using the web site? (Select "Proceed" to continue)'
-        sh './jenkins/scripts/kill.sh'
+        sh '''#!/usr/bin/env sh
+
+echo \'The following command terminates the "npm start" process using its PID\'
+echo \'(written to ".pidfile"), all of which were conducted when "deliver.sh"\'
+echo \'was executed.\'
+set -x
+kill $(cat .pidfile)
+'''
       }
     }
 
